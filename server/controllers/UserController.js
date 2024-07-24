@@ -2,9 +2,15 @@ import User from "../models/User.js";
 import bcrypt from 'bcryptjs';
 
 export const getAllUsers = async (req, res) => {
-    const users = await User.find();
-    res.json({users})
-  };
+    try {
+        const users = await User.find();
+        console.log('Users found:', users);
+        res.json({users});
+    } catch (error) {
+        console.error('Error in getAllUsers:', error);
+        res.status(500).json({ message: 'Error retrieving users', error: error.message });
+    }
+};
   
 
 export const signUp=async(req,res)=>{
@@ -71,3 +77,25 @@ export const deleteUser=async(req,res)=>{
 
 }
 
+export const loginUser=async(req,res)=>{
+const{email,password}=req.body;
+if(!email && email.trim()==="" && !password && password.trim()===""){
+    return res.status(422).json({message:"Invalid Inputs"})
+}
+let existingUser;
+try {
+    existingUser=await User.findOne({email});
+} catch (error) {
+    return error
+}
+
+if(!existingUser){
+    return res.status(404).json({message:"User Not Found"})
+}
+
+const checkPassword=bcrypt.compareSync(password,existingUser.password);
+if(!checkPassword){
+    return res.status(400).json({message:"Invalid Credentials"})
+}
+return res.status(200).json({message:"Login Successfully"})
+}
