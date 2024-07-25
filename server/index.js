@@ -3,6 +3,7 @@ import connectDB from "./database/db.js";
 import dotenv from "dotenv";
 import UserRouter from "./routes/UserRoutes.js";
 import adminRouter from "./routes/AdminRoutes.js";
+import movieRouter from "./routes/MovieRoutes.js";
 const app=express();
 
 dotenv.config();
@@ -15,6 +16,8 @@ connectDB();
 //middlewares
 app.use("/user",UserRouter)
 app.use("/admin",adminRouter)
+app.use("/movie",movieRouter)
+
 
 
 app.listen(port,()=>{
