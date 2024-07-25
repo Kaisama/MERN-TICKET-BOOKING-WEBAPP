@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import UserRouter from "./routes/UserRoutes.js";
 import adminRouter from "./routes/AdminRoutes.js";
 import movieRouter from "./routes/MovieRoutes.js";
+import bookingRouter from "./routes/BookingRoutes.js";
 const app=express();
 
 dotenv.config();
@@ -17,6 +18,8 @@ connectDB();
 app.use("/user",UserRouter)
 app.use("/admin",adminRouter)
 app.use("/movie",movieRouter)
+app.use("/booking",bookingRouter)
+
 
 
 
