@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Booking from "../models/Booking.js";
+import Bookings from "../models/Booking.js";
 import Movie from "../models/Movie.js";
 import User from "../models/User.js";
 
@@ -55,3 +55,39 @@ export const newBooking = async (req, res) => {
     }
     return res.status(200).json({ message: "Booking created successfully", book: Book });
 };
+
+export const getBookingById=async(req,res)=>{
+    let book;
+    const id=req.params.id;
+    try {
+        book=await Booking.findById(id);
+    } catch (error) {
+        return console.log(error);
+    }
+    if(!book){
+        return res.status(404).json({message:"Booking not found"});
+    }
+    return res.status(200).json({book:book});
+}
+
+export const deleteBooking=async(req,res)=>{
+    const id=req.params.id;
+    let book;
+    try {
+        book=await Bookings.findByIdAndDelete(id).populate("user movie")
+        const session=await mongoose.startSession();
+        session.startTransaction();
+        book.user.bookings.pull(book);
+        book.movie.bookings.pull(book);
+        await book.user.save({session});
+        await book.movie.save({session});
+        session.commitTransaction();
+    } catch (error) {
+        return console.log(error);
+    }
+    if(!book){
+        return res.status(404).json({message:"Unable to delete"});
+    }
+    return res.status(200).json({message:"Successfully Deleted"});
+
+}

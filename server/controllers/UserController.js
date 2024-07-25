@@ -1,3 +1,4 @@
+import Booking from "../models/Booking.js";
 import User from "../models/User.js";
 import bcrypt from 'bcryptjs';
 
@@ -98,4 +99,19 @@ if(!checkPassword){
     return res.status(400).json({message:"Invalid Credentials"})
 }
 return res.status(200).json({message:"Login Successfully"})
+}
+
+export const getBookingsOfUser=async(req,res)=>{
+    const id=req.params.id;
+    let bookings;
+    try {
+        bookings=await Booking.find({user:id})
+    } catch (error) {
+        return console.log(error)
+    }
+    if(!bookings){
+        return res.status(500).json({message:"Unable to get booking"})
+
+    }
+    return res.status(200).json({bookings})
 }
