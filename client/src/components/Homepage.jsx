@@ -1,9 +1,15 @@
 import { Box, Button, Typography } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import MovieItem from './Movies/MovieItem'
 import { Link } from 'react-router-dom'
+import { getAllMovies } from '../Api-Helpers/api-helpers'
 
 const Homepage = () => {
+    const [movies, setMovies] = useState([]);
+    useEffect(()=>{
+        getAllMovies().then((data)=>setMovies(data.movies))
+        .catch((err)=> console.log(err));
+    },[])
   return (
     <>
     <Box width={"100%"} height={"100%"} margin="auto" marginTop={2}>
@@ -16,7 +22,8 @@ const Homepage = () => {
                 <Typography variant='h4' textAlign={"center"}>Latest Release</Typography>
             </Box>
             <Box display={"flex"} width={"80%"} justifyContent={"center"} flexWrap={"wrap"}>
-                    {[1,2,3,4].map((item)=><MovieItem key={item}/>)}
+                    { movies && movies.map((movie,index)=><MovieItem id={movie.id} title={movie.title} releaseDate={movie.releaseDate} posterUrl={movie.posterUrl} key={index}/>)}
+                    console.log(movies);
             </Box>
             <Box display={'flex'} padding={'5'} margin={'auto'}>
                 <Button LinkComponent={Link} to='/movies' variant='outlined' sx={{margin:"auto",color:"#2b2d42"}}>View All Movie</Button>
