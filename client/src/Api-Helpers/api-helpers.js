@@ -11,20 +11,27 @@ export const getAllMovies=async()=>{
   return data;
 }
 
-export const sendUserAuthRequest=async(data,signup)=>{
- const res= await axios.post(`/user/${signup?"signup": "login"}`,{
-    name: signup? data.name : "",
-    email:data.email,
-    password:data.password
-  }).catch(err=>console.log(err));
+export const sendUserAuthRequest = async (data, signup) => {
+  try {
+    const res = await axios.post(`/user/${signup ? "signup" : "login"}`, {
+      name: signup ? data.name : "",
+      email: data.email,
+      password: data.password
+    });
 
-  if(res.status!==200 && res.status!==201){
-    console.log("Error Occurred");
+    if (res.status === 200 || res.status === 201) {
+      console.log("Response status:", res.status);
+      console.log("Response data:", res.data);
+      return res.data;
+    } else {
+      throw new Error(`Error occurred: ${res.status}`);
+    }
+  } catch (err) {
+    console.error("Authentication request failed:", err);
+    throw err;
   }
+};
 
-  const resData=await res.data;
-  return resData
-}
 
 export const sendAdminAuthRequest = async (data) => {
   try {
