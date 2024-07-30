@@ -36,7 +36,7 @@ export const signUp=async(req,res)=>{
             return res.status(500).json({message:"Unexpected Error Occur"})
         }
 
-        return res.status(201).json({user})
+        return res.status(201).json({id:user._id})
 }
 
 
