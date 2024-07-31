@@ -1,9 +1,9 @@
-import axios, { Axios } from 'axios'
+import axios from 'axios'
 
 export const getAllMovies=async()=>{
   const res= await axios.get("/movie")
   .catch((err)=>console.log(err));
-
+  console.log('API Response:', res.data);
   if(res.status!==200){
     return console.log("No Data");
   }
@@ -48,5 +48,33 @@ export const sendAdminAuthRequest = async (data) => {
   } catch (err) {
     console.log(err);
     throw err;
+  }
+};
+
+export const getMovieDetail=async(id)=>{
+ const res= await axios.get(`/movie/${id}`).catch(err=>console.log(err));
+ if(res.status!==200){
+  return console.log("Error Occur");
+ }
+ return res.data;
+}
+
+export const newBooking = async (data) => {
+  try {
+    const res = await axios.post('/booking', {
+      movie: data.movie,
+      seatNumber: data.seatNumber,
+      date: data.date,
+      user: localStorage.getItem("userId")
+    });
+
+    if (res.status === 200 || res.status === 201) {
+      return res.data;
+    } else {
+      throw new Error("Unexpected response status: " + res.status);
+    }
+  } catch (err) {
+    console.error("Error occurred during booking:", err);
+    throw err; 
   }
 };
