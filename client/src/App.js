@@ -7,6 +7,8 @@ import Auth from "./components/Auth/Auth";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { adminActions, userActions } from "./redux/store";
+import Booking from "./components/Booking/Booking";
+import UserProfile from "./Profile/UserProfile";
 
 function App() {
   const dispatch=useDispatch();
@@ -33,7 +35,9 @@ useEffect(()=>{
           <Route path="/movies" element={<Movies/>}/>
           <Route path="/admin" element={<Admin/>}/>
           <Route path="/auth" element={<Auth/>}/>
-        
+          <Route path="/booking/:id" element={<Booking/>}/>
+          <Route path="/user" element={<UserProfile/>}/>
+
         </Routes>
       </section>
 
