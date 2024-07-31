@@ -49,18 +49,22 @@ export const addMovie=async(req,res)=>{
 
 }
 
-export const getAllMovies=async(req,res)=>{
-    let movies;
-try {
-    movies =await Movie.find();
-} catch (error) {
-    return console.log(error);
-}
-if(!movies){
-    return res.status(404).json({message:"Movies Not Found"})
-}
-return res.status(200).json({movies})
-}
+export const getAllMovies = async (req, res) => {
+    try {
+        const movies = await Movie.find();
+        
+
+        if (!movies || movies.length === 0) {
+            return res.status(404).json({ message: "Movies Not Found" });
+        }
+
+        return res.status(200).json({ movies });
+    } catch (error) {
+        // Log the error for debugging
+        console.error('Error fetching movies:', error);
+        return res.status(500).json({ message: "Internal Server Error", error: error.message });
+    }
+};
 
 export const getMovieById=async(req,res)=>{
     let movie;

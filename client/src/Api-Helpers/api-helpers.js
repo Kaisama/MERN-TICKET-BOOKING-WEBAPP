@@ -32,7 +32,6 @@ export const sendUserAuthRequest = async (data, signup) => {
   }
 };
 
-
 export const sendAdminAuthRequest = async (data) => {
   try {
     const res = await axios.post("/admin/login", {

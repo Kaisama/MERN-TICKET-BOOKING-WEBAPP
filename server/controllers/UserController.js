@@ -78,28 +78,32 @@ export const deleteUser=async(req,res)=>{
 
 }
 
-export const loginUser=async(req,res)=>{
-const{email,password}=req.body;
-if(!email && email.trim()==="" && !password && password.trim()===""){
-    return res.status(422).json({message:"Invalid Inputs"})
-}
-let existingUser;
-try {
-    existingUser=await User.findOne({email});
-} catch (error) {
-    return error
+export const loginUser = async (req, res) => {
+    const { email, password } = req.body;
+
+    if (!email && email.trim() === "" && !password && password.trim() === "") {
+        return res.status(422).json({ message: "Invalid Inputs" });
+    }
+
+    let existingUser;
+    try {
+        existingUser = await User.findOne({ email });
+    } catch (error) {
+        return res.status(500).json({ message: "Error finding user", error: error.message });
+    }
+
+    if (!existingUser) {
+        return res.status(404).json({ message: "User Not Found" });
+    }
+
+    const checkPassword = bcrypt.compareSync(password, existingUser.password);
+    if (!checkPassword) {
+        return res.status(400).json({ message: "Invalid Credentials" });
+    }
+
+    return res.status(200).json({ message: "Login Successfully", id: existingUser._id });
 }
 
-if(!existingUser){
-    return res.status(404).json({message:"User Not Found"})
-}
-
-const checkPassword=bcrypt.compareSync(password,existingUser.password);
-if(!checkPassword){
-    return res.status(400).json({message:"Invalid Credentials"})
-}
-return res.status(200).json({message:"Login Successfully"})
-}
 
 export const getBookingsOfUser=async(req,res)=>{
     const id=req.params.id;
