@@ -1,10 +1,10 @@
-import { Button, Card, CardActions, CardContent, Typography } from '@mui/material';
+// MovieItem Component: Rendering individual movie items
 import React from 'react';
+import { Button, Card, CardActions, CardContent, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 const MovieItem = ({ title, releaseDate, posterUrl, id }) => {
-  console.log('MovieItem ID:', id); // Log the ID to verify it's being received correctly
-
+  console.log('MovieItem Props:', { title, releaseDate, posterUrl, id }); 
   return (
     <Card 
       sx={{
