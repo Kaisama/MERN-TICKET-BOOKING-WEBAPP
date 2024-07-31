@@ -1,5 +1,6 @@
-import { Box, Typography } from '@mui/material';
+// Movies Component: Fetching and mapping movies data
 import React, { useEffect, useState } from 'react';
+import { Box, Typography } from '@mui/material';
 import { getAllMovies } from '../../Api-Helpers/api-helpers';
 import MovieItem from './MovieItem';
 
@@ -8,7 +9,10 @@ const Movies = () => {
 
   useEffect(() => {
     getAllMovies()
-      .then((data) => setMovies(data.movies))
+      .then((data) => {
+        console.log('Fetched Movies Data:', data.movies);
+        setMovies(data.movies);
+      })
       .catch(err => console.log(err));
   }, []);
 
@@ -32,10 +36,11 @@ const Movies = () => {
         justifyContent={'start'} 
         flexWrap={'wrap'}
       >
-        {movies.map((movie, index) => (
+        
+        {movies.map((movie) => (
           <MovieItem 
-            key={index} 
-            id={movie._id} 
+            key={movie._id} 
+            id={movie._id}
             posterUrl={movie.posterUrl} 
             releaseDate={movie.releaseDate} 
             title={movie.title} 
