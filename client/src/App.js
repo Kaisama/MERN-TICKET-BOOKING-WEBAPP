@@ -23,7 +23,7 @@ useEffect(()=>{
     dispatch(adminActions.login())
 
   }
-},[])
+},[dispatch])
 
   return (
     <div className="App">

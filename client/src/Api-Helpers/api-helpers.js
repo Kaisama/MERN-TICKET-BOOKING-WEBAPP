@@ -51,14 +51,21 @@ export const sendAdminAuthRequest = async (data) => {
   }
 };
 
-export const getMovieDetail=async(id)=>{
- const res= await axios.get(`/movie/${id}`).catch(err=>console.log(err));
- if(res.status!==200){
-  return console.log("Error Occur");
- }
- return res.data;
-}
-
+export const getMovieDetail = async (id) => {
+  if (!id) {
+      throw new Error("Movie ID is required");
+  }
+  try {
+      const res = await axios.get(`/movie/${id}`);
+      if (res.status !== 200) {
+          throw new Error("Failed to fetch movie details");
+      }
+      return res.data;
+  } catch (err) {
+      console.error("Error fetching movie details:", err);
+      throw err;
+  }
+};
 export const newBooking = async (data) => {
   try {
     const res = await axios.post('/booking', {
@@ -76,5 +83,21 @@ export const newBooking = async (data) => {
   } catch (err) {
     console.error("Error occurred during booking:", err);
     throw err; 
+  }
+};
+
+export const getUserBooking = async () => {
+  try {
+    const id = localStorage.getItem("userId");
+    const res = await axios.get(`/user/bookings/${id}`);
+    if (res.status === 200) {
+      const resData=await res.data;
+      return resData;
+    } else {
+      throw new Error("Unexpected response status: " + res.status);
+    }
+  } catch (err) {
+    console.error("Error fetching user bookings:", err);
+    throw err;
   }
 };

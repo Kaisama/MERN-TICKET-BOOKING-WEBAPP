@@ -66,16 +66,25 @@ export const getAllMovies = async (req, res) => {
     }
 };
 
-export const getMovieById=async(req,res)=>{
-    let movie;
-    const id=req.params.id;
+export const getMovieById = async (req, res) => {
+    const id = req.params.id;
+    
+    if (!id) {
+        return res.status(400).json({ message: "Movie ID is required" });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ message: "Invalid movie ID format" });
+    }
+
     try {
-        movie=await Movie.findById(id)
+        const movie = await Movie.findById(id);
+        if (!movie) {
+            return res.status(404).json({ message: "Movie not found" });
+        }
+        return res.status(200).json({ movie });
     } catch (error) {
-        return console.log(error);
+        console.error('Error fetching movie:', error);
+        return res.status(500).json({ message: "Internal Server Error", error: error.message });
     }
-    if(!movie){
-        return res.status(404).json({message:"Invalid Id"}) 
-    }
-    return res.status(200).json({movie});
-}
+};
