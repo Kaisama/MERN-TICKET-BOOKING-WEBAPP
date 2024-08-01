@@ -109,7 +109,7 @@ export const getBookingsOfUser=async(req,res)=>{
     const id=req.params.id;
     let bookings;
     try {
-        bookings=await Booking.find({user:id})
+        bookings=await Booking.find({user:id}).populate('user movie')
     } catch (error) {
         return console.log(error)
     }
