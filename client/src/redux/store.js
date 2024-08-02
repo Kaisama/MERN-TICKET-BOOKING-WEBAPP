@@ -19,7 +19,7 @@ export const userActions=userSlice.actions;
 
 
 const adminSlice=createSlice({
-    name:'auth',
+    name:'admin',
     initialState:{isLoggedIn:false},
     reducers:{
         login(state){
@@ -40,7 +40,7 @@ export const adminActions=adminSlice.actions;
 export const store=configureStore({
     reducer:{
         user:userSlice.reducer,
-        auth:adminSlice.reducer,
+        admin:adminSlice.reducer,
     }
 })
 
