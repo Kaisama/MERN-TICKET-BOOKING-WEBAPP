@@ -116,3 +116,34 @@ export const getUserDetails = async () => {
     throw err;
   }
 };
+
+export const addMovie = async (data) => {
+  try {
+      const res = await axios.post("/movie", {
+          title: data.title,
+          description: data.description,
+          releaseDate: data.releaseDate,
+          posterUrl: data.posterUrl,
+          featured: data.featured,
+          actors: data.actors,
+          admin: localStorage.getItem("adminId"),
+      }, {
+          headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+      });
+
+      console.log("API Response:", res); 
+
+      if (res.status !== 200 && res.status !== 201) {
+          console.log("Error Occur");
+          return;
+      }
+
+      const resData = await res.data;
+      return resData;
+  } catch (err) {
+      console.error("Error Occurred:", err);
+      return;
+  }
+};
