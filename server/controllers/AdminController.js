@@ -70,16 +70,22 @@ export const getAllAdmins=async(req,res)=>{
     return res.status(200).json({admins})
 }
 
-export const getAdminById=async()=>{
-    const id=req.params.id;
+export const getAdminById = async (req, res) => {
+    const id = req.params.id;
+  
+  
+  
     let admin;
     try {
-        admin = await Admin.findById(id).populate("addedMovies");
+      admin = await Admin.findById(id).populate("addedMovies");
     } catch (error) {
-        return console.log(error);
+      console.error(error);
+      return res.status(500).json({ message: "Server error" });
     }
-    if(!admin){
-        return res.status(404).json({message:"Admin not found"})
+  
+    if (!admin) {
+      return res.status(404).json({ message: "Admin not found" });
     }
-    return res.status(200).json({admin});
-}
+  
+    return res.status(200).json({ admin });
+  };
