@@ -23,7 +23,7 @@ const Homepage = () => {
             </Box>
             <Box display={"flex"} width={"80%"} justifyContent={"center"} flexWrap={"wrap"}>
                     { movies && movies.map((movie,index)=><MovieItem id={movie.id} title={movie.title} releaseDate={movie.releaseDate} posterUrl={movie.posterUrl} key={index}/>)}
-                    console.log(movies);
+                    
             </Box>
             <Box display={'flex'} padding={'5'} margin={'auto'}>
                 <Button LinkComponent={Link} to='/movies' variant='outlined' sx={{margin:"auto",color:"#2b2d42"}}>View All Movie</Button>
