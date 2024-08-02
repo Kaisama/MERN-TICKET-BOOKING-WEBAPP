@@ -69,3 +69,17 @@ export const getAllAdmins=async(req,res)=>{
     }
     return res.status(200).json({admins})
 }
+
+export const getAdminById=async()=>{
+    const id=req.params.id;
+    let admin;
+    try {
+        admin = await Admin.findById(id).populate("addedMovies");
+    } catch (error) {
+        return console.log(error);
+    }
+    if(!admin){
+        return res.status(404).json({message:"Admin not found"})
+    }
+    return res.status(200).json({admin});
+}
