@@ -10,6 +10,7 @@ import { adminActions, userActions } from "./redux/store";
 import Booking from "./components/Booking/Booking";
 import UserProfile from "./Profile/UserProfile";
 import AddMovie from "./components/Movies/AddMovie";
+import AdminProfile from "./Profile/AdminProfile";
 
 function App() {
   const dispatch=useDispatch();
@@ -38,6 +39,7 @@ useEffect(()=>{
           <Route path="/auth" element={<Auth/>}/>
           <Route path="/user" element={<UserProfile/>}/>
           <Route path="/add" element={<AddMovie/>}/>
+          <Route path="/profile-admin" element={<AdminProfile/>}/>
 
           <Route path="/booking/:id" element={<Booking/>}/>
 
