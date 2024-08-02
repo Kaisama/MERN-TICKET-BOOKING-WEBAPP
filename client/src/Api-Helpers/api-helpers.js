@@ -147,3 +147,24 @@ export const addMovie = async (data) => {
       return;
   }
 };
+
+
+
+export const getAdminById = async () => {
+  const adminId = localStorage.getItem("adminId");
+
+  if (!adminId || adminId === "null") {
+    throw new Error("Invalid Admin ID");
+  }
+
+  try {
+    const res = await axios.get(`/admin/${adminId}`);
+    if (res.status !== 200) {
+      throw new Error("Failed to fetch admin data");
+    }
+    return res.data;
+  } catch (err) {
+    console.error("Error fetching admin data:", err);
+    throw err;
+  }
+};
