@@ -9,6 +9,7 @@ const [isSignUp, setIsSignUp] = useState(false);
 const [input, setInput] = useState({
     name:"",email:"",password:""
 })
+const[close,setClose]=useState(true)
 
 const handleChange=(e)=>{
     setInput((prev)=>({...prev,[e.target.name]:e.target.value}))
@@ -20,9 +21,9 @@ const handleSubmit=(e)=>{
 }
 
   return (
-    <Dialog open={true}>
+    <Dialog open={close} >
         <Box sx={{ml:'auto',padding:1}}>
-            <IconButton>
+            <IconButton  onClick={()=>setClose(false)}>
                 <CloseRoundedIcon />
             </IconButton>
         </Box>
