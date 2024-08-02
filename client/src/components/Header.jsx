@@ -35,7 +35,7 @@ const Header = () => {
           <Box width={'30%'} margin={'auto'}>
             <Autocomplete
               freeSolo
-              options={movies && movies.map((option) => option.title)} 
+              options={movies && movies.map((option) => option.title)}
               renderInput={(params) => (
                 <TextField
                   sx={{ input: { color: 'white' } }}
@@ -58,17 +58,15 @@ const Header = () => {
                 <Tab key='admin' LinkComponent={Link} to='/admin' label='Admin' />,
                 <Tab key='auth' LinkComponent={Link} to='/auth' label='Auth' />
               ]}
-              {isUserLoggedIn && [
+              {isUserLoggedIn && !isAdminLoggedIn && [
                 <Tab key='profile' LinkComponent={Link} to='/user' label='Profile' />,
                 <Tab key='logout' LinkComponent={Link} to='/' onClick={() => logout(false)} label='Logout' />
               ]}
-             {isAdminLoggedIn && 
-  [
-    <Tab LinkComponent={Link} to='/add' label='Add Movie' />,
-    <Tab LinkComponent={Link} to='/admin' label='Profile' />,
-    <Tab LinkComponent={Link} to='/' onClick={() => logout(true)} label='Logout' />
-
-]}
+              {isAdminLoggedIn && [
+                <Tab key='add' LinkComponent={Link} to='/add' label='Add Movie' />,
+                <Tab key='profile-admin' LinkComponent={Link} to='/profile-admin' label='Profile' />,
+                <Tab key='logout-admin' LinkComponent={Link} to='/' onClick={() => logout(true)} label='Logout' />
+              ]}
             </Tabs>
           </Box>
         </Toolbar>
