@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { adminActions, userActions } from "./redux/store";
 import Booking from "./components/Booking/Booking";
 import UserProfile from "./Profile/UserProfile";
+import AddMovie from "./components/Movies/AddMovie";
 
 function App() {
   const dispatch=useDispatch();
@@ -35,8 +36,11 @@ useEffect(()=>{
           <Route path="/movies" element={<Movies/>}/>
           <Route path="/admin" element={<Admin/>}/>
           <Route path="/auth" element={<Auth/>}/>
-          <Route path="/booking/:id" element={<Booking/>}/>
           <Route path="/user" element={<UserProfile/>}/>
+          <Route path="/add" element={<AddMovie/>}/>
+
+          <Route path="/booking/:id" element={<Booking/>}/>
+
 
         </Routes>
       </section>
