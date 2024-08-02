@@ -1,10 +1,12 @@
 import { Box, Button, Checkbox, FormLabel, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import { addMovie } from '../../Api-Helpers/api-helpers'
+import { Link, useNavigate } from 'react-router-dom'
 const labelProps={
     mt:1,mb:1
 }
 const AddMovie = () => {
+    const navigate=useNavigate();
     const [inputs, setInputs] = useState(
        { title:"",
         description:"",
@@ -28,6 +30,8 @@ const AddMovie = () => {
             actors: actors
         }).then((res) => {
             console.log("all data", res);
+            navigate('/movies');
+
         }).catch(err => {
             console.error("API call failed:", err);
         });
@@ -57,7 +61,7 @@ const AddMovie = () => {
                 <Checkbox name='featured' checked={inputs.featured} onClick={(e)=>setInputs((prev)=>({...prev,featured:e.target.checked}))} sx={{mr:"auto"}}/>
                 <Button type='submit' variant='contained' sx={{width:'30%',margin:"auto",bgcolor:'#2b2d43',":hover":{
                     bgcolor:"#121217"
-                }}}>Add New Movie</Button>
+                }}} >Add New Movie</Button>
             </Box>
         </form>
     </div>
