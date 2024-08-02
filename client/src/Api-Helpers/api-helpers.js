@@ -102,3 +102,17 @@ export const deleteBooking=async(id)=>{
   const resData= await res.data;
   return resData;
 }
+
+export const getUserDetails = async () => {
+  const id = localStorage.getItem("userId");
+  try {
+    const res = await axios.get(`/user/${id}`);
+    if (res.status !== 200) {
+      throw new Error("Failed to fetch user details");
+    }
+    return res.data;
+  } catch (err) {
+    console.error("Error fetching user details:", err);
+    throw err;
+  }
+};
