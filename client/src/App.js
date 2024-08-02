@@ -35,13 +35,12 @@ useEffect(()=>{
         <Routes>
           <Route path="/" element={<Homepage/>}/>
           <Route path="/movies" element={<Movies/>}/>
-          <Route path="/admin" element={<Admin/>}/>
-          <Route path="/auth" element={<Auth/>}/>
-          <Route path="/user" element={<UserProfile/>}/>
-          <Route path="/add" element={<AddMovie/>}/>
-          <Route path="/profile-admin" element={<AdminProfile/>}/>
-
-          <Route path="/booking/:id" element={<Booking/>}/>
+         {!isAdminLoggedIn && !isUserLoggedIn && <> <Route path="/admin" element={<Admin/>}/>
+            <Route path="/auth" element={<Auth/>}/></> }
+        { isAdminLoggedIn && !isUserLoggedIn && <><Route path="/add" element={<AddMovie/>}/>
+          <Route path="/profile-admin" element={<AdminProfile/>}/></>}
+{  isUserLoggedIn && !isAdminLoggedIn &&  <>     <Route path="/user" element={<UserProfile/>}/>
+          <Route path="/booking/:id" element={<Booking/>}/></> }
 
 
         </Routes>
