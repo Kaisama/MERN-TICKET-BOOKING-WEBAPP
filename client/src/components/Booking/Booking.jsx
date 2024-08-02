@@ -7,18 +7,15 @@ const Booking = () => {
     const [movie, setMovie] = useState()
     const[inputs,setInputs]=useState({seatNumber:"",date:""})
     const id=useParams().id;
-    console.log(id);
     useEffect(()=>{
         getMovieDetail(id).then((res)=>setMovie(res.movie)).catch(err=>console.log(err))
     },[id])
-    console.log(movie);
 const handleChange=(e)=>{
     setInputs((prev)=>({...prev,[e.target.name]:e.target.value}))
 }
 
 const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(inputs);
     try {
       const res = await newBooking({...inputs, movie: movie._id});
       console.log("Booking successful:", res);

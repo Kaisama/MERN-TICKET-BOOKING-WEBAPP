@@ -9,14 +9,12 @@ const Admin = () => {
   const dispatch=useDispatch();
   const navigate=useNavigate();
   const onResReceived=(data)=>{
-    console.log(data);
     dispatch(adminActions.login());
     localStorage.setItem("adminId",data.id)
     localStorage.setItem("token",data.token)
     navigate("/admin-profile");
   }
   const getData = (data) => {
-    console.log("admins",data);
     sendAdminAuthRequest(data.input)
       .then(onResReceived)
       .catch((err) => console.log("Authentication failed:", err));

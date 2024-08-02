@@ -9,9 +9,7 @@ const Auth = () => {
   const dispatch = useDispatch();
 const navigate=useNavigate();
   const onResReceived = (data) => {
-    console.log("Response data received:", data);
     if (data && data.id) {
-      console.log("User ID found:", data.id);
       dispatch(userActions.login());
       localStorage.setItem("userId", data.id);
       navigate('/');
@@ -22,9 +20,7 @@ const navigate=useNavigate();
 
   const getData = async (data) => {
     try {
-      console.log("Sending user auth request with data:", data);
       const response = await sendUserAuthRequest(data.input, data.signup);
-      console.log("Response from sendUserAuthRequest:", response);
       onResReceived(response);
     } catch (err) {
       console.error("Authentication failed:", err);
