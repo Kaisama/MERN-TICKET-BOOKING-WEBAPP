@@ -1,8 +1,8 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { getUserBooking } from '../Api-Helpers/api-helpers';
-import { Box, List, ListItem, ListItemText, Typography } from '@mui/material';
+import { deleteBooking, getUserBooking } from '../Api-Helpers/api-helpers';
+import { Box, IconButton, List, ListItem, ListItemText, Typography } from '@mui/material';
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 const UserProfile = () => {
   const [bookings, setBookings] = useState([]);
 
@@ -11,7 +11,9 @@ const UserProfile = () => {
   },[])   
 
   console.log("check",bookings);
-
+const handleDelete=(id)=>{
+deleteBooking(id).then((res)=>console.log(res)).catch(err=>console.log(err))
+}
   return (
     
     <Box width={'100%'} display={'flex'}>
@@ -54,9 +56,20 @@ const UserProfile = () => {
                     <ListItem key={booking._id} divider={true} sx={{bgcolor:"#00d386",color:"white",textAlign:"center",margin:1}}>
                       <ListItemText  sx={{margin:1,width:"auto", textAlign:"left" }}>
                         Movie : {booking.movie.title}
-                        {console.log("Booking data:", bookings)}
                       </ListItemText>
+
+                      <ListItemText  sx={{margin:1,width:"auto", textAlign:"left" }}>
+                        Seat : {booking.seatNumber}
+                      </ListItemText>
+
+                      <ListItemText  sx={{margin:1,width:"auto", textAlign:"left" }}>
+                         Date : {new Date(booking.date).toDateString()}
+                      </ListItemText>
+
+                      <IconButton onClick={()=>handleDelete(booking._id)} color='error'><DeleteForeverIcon /></IconButton>
                     </ListItem>
+
+
                   ))}
                 </List>
               </Box>

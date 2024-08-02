@@ -93,3 +93,12 @@ export const getUserBooking = async () => {
  
 };
 
+
+export const deleteBooking=async(id)=>{
+  const res=axios.delete(`/booking/${id}`).catch(err=>console.log(err))
+  if(res.status!==200){
+    return console.log("Error Occur");
+  }
+  const resData= await res.data;
+  return resData;
+}
