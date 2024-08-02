@@ -1,5 +1,6 @@
 import { Box, Button, Checkbox, FormLabel, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
+import { addMovie } from '../../Api-Helpers/api-helpers'
 const labelProps={
     mt:1,mb:1
 }
@@ -21,6 +22,15 @@ const AddMovie = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(inputs,actors);
+        console.log("Form submitted");
+        addMovie({
+            ...inputs,
+            actors: actors
+        }).then((res) => {
+            console.log("all data", res);
+        }).catch(err => {
+            console.error("API call failed:", err);
+        });
     }
   return (
     <div>
