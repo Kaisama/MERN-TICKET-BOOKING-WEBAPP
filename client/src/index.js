@@ -7,7 +7,7 @@ import axios from 'axios';
 import {Provider} from 'react-redux';
 import { store } from './redux/store';
 const root = ReactDOM.createRoot(document.getElementById('root'));
-axios.defaults.baseURL="http://localhost:8080";
+axios.defaults.baseURL="https://mern-ticket-booking-webapp.onrender.com";
 root.render(
   <Provider store={store}>
   <BrowserRouter>
